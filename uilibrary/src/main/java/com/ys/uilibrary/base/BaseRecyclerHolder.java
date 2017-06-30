@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lsjr.zizisteward.http.AppUrl;
-import com.yangshao.image.ImageLoader;
-
 public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
     private final SparseArray<View> mViews;
 
@@ -78,7 +75,7 @@ public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
      * @return
      */
     public BaseRecyclerHolder setImageByUrl(int viewId, String url) {
-        ImageLoader.with().url(AppUrl.Http+url).into((ImageView) getView(viewId));
+       // ImageLoader.with().url(AppUrl.Http+url).into((ImageView) getView(viewId));
         return this;
     }
 
