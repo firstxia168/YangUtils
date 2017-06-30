@@ -8,16 +8,6 @@
     tools:context=".MainActivity">
 
 
-    <com.ymz.baselibrary.widget.NavigationBarView
-        android:id="@+id/id_bar_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        ymz:backgrounds="#000000"
-        ymz:leftIcon="@drawable/ic_default"
-        ymz:rightColor="@color/colorAccent"
-        ymz:rightText="注册"
-        ymz:titles="登陆" />
-
 
     <RelativeLayout
 

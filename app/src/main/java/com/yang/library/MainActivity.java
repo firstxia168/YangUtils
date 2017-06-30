@@ -2,8 +2,10 @@ package com.yang.library;
 
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.ymz.baselibrary.ABaseActivity;
+import com.ymz.baselibrary.utils.T_;
 
 public class MainActivity extends ABaseActivity {
 
@@ -18,6 +20,16 @@ public class MainActivity extends ABaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
 
+        setTitleText("测试 TopBar");
+        setTopLeftButton(R.drawable.ic_load_fail_black, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                T_.showToastReal("测试");
+            }
+        });
+
+       // setTopLeftButton(R.drawable.ic_load_fail_black);
         //showLoadingView();
 //        UIUtils.getHandler().postDelayed(new Runnable() {
 //            @Override
