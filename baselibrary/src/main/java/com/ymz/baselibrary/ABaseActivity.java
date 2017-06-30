@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.ymz.baselibrary.utils.UIUtils;
 import com.ymz.baselibrary.view.PermissionListener;
 import com.ymz.baselibrary.view.ProgressDialogUtils;
+import com.ymz.baselibrary.widget.NavigationBarView;
 import com.ymz.baselibrary.widget.NetworkStateView;
 
 import butterknife.ButterKnife;
@@ -24,7 +28,7 @@ import butterknife.Unbinder;
  * 创建时间：2017/6/28 14:21
  */
 
-public abstract class ABaseActivity extends AppCompatActivity implements NetworkStateView.OnRefreshListener{
+public abstract class ABaseActivity extends AppCompatActivity implements NetworkStateView.OnRefreshListener {
 
     private Unbinder unbinder;
 
@@ -35,14 +39,19 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
     private static PermissionListener mPermissionListener;
     private static final int CODE_REQUEST_PERMISSION = 1;
 
+    private OnTopBarClickListener onTopBarLeftListener;
+    private OnTopBarClickListener onTopBarRightListener;
+    NavigationBarView toolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
-       // ActivityUtils.addActivity(this);
+        // ActivityUtils.addActivity(this);
         initDialog();
         afterCreate(savedInstanceState);
+
     }
 
     @SuppressLint("InflateParams")
@@ -55,20 +64,68 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             view.setFitsSystemWindows(true);
         }
-
         //加载子类Activity的布局
         initDefaultView(layoutResID);
     }
 
     /**
      * 初始化默认布局的View
+     *
      * @param layoutResId 子View的布局id
      */
+    @SuppressLint("RestrictedApi")
     private void initDefaultView(int layoutResId) {
         networkStateView = (NetworkStateView) findViewById(R.id.nsv_state_view);
+        toolbar = (NavigationBarView) findViewById(R.id.id_bar_view);
+
         FrameLayout container = (FrameLayout) findViewById(R.id.fl_activity_child_container);
         View childView = LayoutInflater.from(this).inflate(layoutResId, null);
         container.addView(childView, 0);
+    }
+
+
+    public void setTitleText(String title) {
+        if (!TextUtils.isEmpty(title)) {
+            toolbar.setTitleText(title);
+        }
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (onTopBarLeftListener != null) {
+                onTopBarLeftListener.onClick();
+            }
+        }
+        return true;
+    }
+
+    protected void setTopLeftButton(int iconResId, View.OnClickListener onTopBarLeftListener) {
+        toolbar.setleftImageResource(UIUtils.getDrawable(iconResId));
+        toolbar.setLetfIocnOnClickListener(onTopBarLeftListener);
+    }
+
+    protected void setTopLeftButton(int iconResId) {
+        toolbar.setleftImageResource(UIUtils.getDrawable(iconResId));
+        toolbar.setLetfIocnOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+
+    protected void setTopRightButton(int iconResId, View.OnClickListener onTopBarRightListener) {
+        toolbar.setRightImageResource(UIUtils.getDrawable(iconResId));
+        toolbar.setRightTextOnClickListener(onTopBarRightListener);
+    }
+
+
+    public interface OnTopBarClickListener {
+        void onClick();
     }
 
     protected abstract int getLayoutId();
@@ -159,7 +216,6 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
      * ProgressDialog默认消失时间为1秒(1000毫秒)
      *
      * @param message 加载成功需要显示的文字
-     *
      */
     public void showProgressSuccess(String message) {
         progressDialog.showProgressSuccess(message);
@@ -180,7 +236,6 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
      * ProgressDialog默认消失时间为1秒(1000毫秒)
      *
      * @param message 加载成功需要显示的文字
-     *
      */
     public void showProgressFail(String message) {
         progressDialog.showProgressFail(message);
@@ -195,8 +250,9 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
 
     /**
      * 申请权限
+     *
      * @param permissions 需要申请的权限(数组)
-     * @param listener 权限回调接口
+     * @param listener    权限回调接口
      */
     public static void requestPermissions(String[] permissions, PermissionListener listener) {
 
@@ -208,22 +264,22 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
         unbinder.unbind();
     }
 
-    public void openActivity(Class<?> pClass, Bundle bundle){
-        Intent intent=new Intent(this,pClass);
-        if (bundle!=null){
+    public void openActivity(Class<?> pClass, Bundle bundle) {
+        Intent intent = new Intent(this, pClass);
+        if (bundle != null) {
             intent.putExtras(bundle);
         }
         startActivity(intent);
     }
 
-    public void openActivity(Class<?> pClass){
-        Intent intent=new Intent(this,pClass);
+    public void openActivity(Class<?> pClass) {
+        Intent intent = new Intent(this, pClass);
         startActivity(intent);
     }
 
     /*跳转到登录页面  登录成功回调到刚刚页面*/
-    public void loginToServer(Class<?> c,Activity resultActivcity) {
-        Intent loginIntent = new Intent(this,resultActivcity.getClass());
+    public void loginToServer(Class<?> c, Activity resultActivcity) {
+        Intent loginIntent = new Intent(this, resultActivcity.getClass());
         loginIntent.putExtra("", c);
         startActivity(loginIntent);
         finish();
@@ -249,5 +305,5 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
         }
     }
 
-    public abstract  int getFragmentContentId();
+    public abstract int getFragmentContentId();
 }

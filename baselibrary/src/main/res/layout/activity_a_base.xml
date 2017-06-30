@@ -2,7 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ymz="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <com.ymz.baselibrary.widget.NavigationBarView
+        android:id="@+id/id_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        ymz:backgrounds="#000000"
+        ymz:leftIcon="@drawable/ic_default"
+        ymz:rightColor="@color/colorAccent"
+        />
 
     <include layout="@layout/view_network_state" />
 
