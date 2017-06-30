@@ -107,6 +107,7 @@ public abstract class ABaseActivity extends AppCompatActivity implements Network
         toolbar.setLetfIocnOnClickListener(onTopBarLeftListener);
     }
 
+    /*默认 是返回键*/
     protected void setTopLeftButton(int iconResId) {
         toolbar.setleftImageResource(UIUtils.getDrawable(iconResId));
         toolbar.setLetfIocnOnClickListener(new View.OnClickListener() {
