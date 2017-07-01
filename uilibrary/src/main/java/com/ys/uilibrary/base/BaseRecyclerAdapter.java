@@ -53,49 +53,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         return mDatas.size();
     }
 
-    /**
-     * 添加集合数据到原集合首位，下拉刷新时使用
-     *
-     * @param list
-     */
-    public void addToFirst(List<T> list) {
-        if (list == null)
-            return;
-        this.mDatas.addAll(0, list);
-        notifyDataSetChanged();
-    }
-
-    public void addToFirst(T t) {
-        if (t == null)
-            return;
-        this.mDatas.add(0, t);
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 添加数据到末尾，用于上拉加载等情况。<BR>
-     * 不清楚原集合，添加到末尾。
-     *
-     * @param list
-     */
-    public void addToLast(List<T> list) {
-        if (list == null)
-            return;
-        this.mDatas.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 添加元素到集合末尾
-     *
-     * @param t
-     */
-    public void addToLast(T t) {
-        if (t == null)
-            return;
-        this.mDatas.add(t);
-        notifyDataSetChanged();
-    }
 
 
     /**

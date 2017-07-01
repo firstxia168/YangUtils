@@ -8,6 +8,10 @@
     tools:context=".MainActivity">
 
 
+    <com.ymz.baselibrary.widget.NavigationBarView
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:id="@+id/id_navigationbar"/>
 
     <RelativeLayout
 
