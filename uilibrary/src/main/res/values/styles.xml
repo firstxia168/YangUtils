@@ -1,0 +1,16 @@
+<resources>
+
+    <style name="LineHorizontalStyle">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#323232</item>
+    </style>
+
+    <style name="LineVerticalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#323232</item>
+    </style>
+
+
+</resources>

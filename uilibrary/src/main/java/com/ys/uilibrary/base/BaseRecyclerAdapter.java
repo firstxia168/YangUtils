@@ -7,9 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.ymz.baselibrary.utils.UIUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +17,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     private int layouId;
     private List<T> mDatas;
 
-    public BaseRecyclerAdapter(List<T> datas, int itemLayoutId) {
-        this.context = UIUtils.getContext().getApplicationContext();
+    public BaseRecyclerAdapter(Context context,List<T> datas, int itemLayoutId) {
+        this.context = context;
         this.mDatas = datas;
         this.layouId = itemLayoutId;
         setListData(mDatas);

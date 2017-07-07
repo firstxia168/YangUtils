@@ -1,6 +1,7 @@
 package com.yang.library;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -10,10 +11,9 @@ import com.ymz.baselibrary.utils.T_;
 import com.ymz.baselibrary.widget.NavigationBarView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
+@SuppressLint("Registered")
 public class MainActivity extends ABaseActivity {
-
 
     @BindView(R.id.id_fragment_container)
     RelativeLayout idFragmentContainer;
@@ -38,59 +38,6 @@ public class MainActivity extends ABaseActivity {
             }
         });
 
-        // setTopLeftButton(R.drawable.ic_load_fail_black);
-        //showLoadingView();
-//        UIUtils.getHandler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showLoadingView();
-//            }
-//        }, 0);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showEmptyView();
-//            }
-//        }, 2000);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showProgressFail("正在登录");
-//            }
-//        }, 2000);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showErrorView();
-//            }
-//        }, 6000);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showProgressSuccess("加载成功");
-//            }
-//        }, 8000);
-//
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showProgressFail("加载失败");
-//            }
-//        }, 1000);
-//
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showContentView();
-//            }
-//        }, 12000);
-
         MainFragment mainFragment = new MainFragment();
         addFragment(mainFragment);
     }
@@ -100,10 +47,4 @@ public class MainActivity extends ABaseActivity {
         return R.id.id_fragment_container;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

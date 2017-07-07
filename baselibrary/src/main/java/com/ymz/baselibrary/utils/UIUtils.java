@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -23,6 +25,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.ymz.baselibrary.BaseApplication;
+import com.ymz.baselibrary.R;
 
 
 public class UIUtils {
@@ -76,6 +79,31 @@ public class UIUtils {
 				(int) outMetrics.density };
 	}
 
+
+	/**
+	 * 	在不加载图片情况下获取图片大小 适合网络图片
+	 */
+
+	public static int[] getBitmapWH(String path)
+	{
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		/**
+		 * 最关键在此，把options.inJustDecodeBounds = true;
+		 * 这里再decodeFile()，返回的bitmap为空，但此时调用options.outHeight时，已经包含了图片的高了
+		 */
+		options.inJustDecodeBounds = true;
+		Bitmap bitmap = BitmapFactory.decodeFile(path, options); // 此时返回的bitmap为null
+		/**
+		 *options.outHeight为原始图片的高
+		 */
+		//L_.e("options:"+bitmap.getWidth()+"options.outHeight :"+bitmap.getHeight());
+		L_.e("options:"+options.outWidth+"options.outHeight :"+options.outHeight);
+		return new int[]{options.outWidth,options.outHeight};
+	}
+
+	public void satusBarColor(Activity activity,int color){
+		SystemBarHelper.tintStatusBar(activity, color);
+	}
 
 	/** dip转换px */
 	public static int dip2px(int dip) {
@@ -165,7 +193,7 @@ public class UIUtils {
 	}
 
 
-	/** 获取颜色选择�? */
+	/** 获取颜色选择 */
 	public static ColorStateList getColorStateList(int resId) {
 		return getResources().getColorStateList(resId);
 	}
@@ -208,7 +236,6 @@ public class UIUtils {
 
 
 	public static void setStatusBarColor(Activity activity, int colorId) {
-
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			SystemBarTintManager manager = new SystemBarTintManager(activity);
 			manager.setStatusBarTintEnabled(true);
@@ -235,9 +262,6 @@ public class UIUtils {
 	public static Drawable getDrawable(int resTd) {
 		return getResources().getDrawable(resTd);
 	}
-
-
-
 
 }
 

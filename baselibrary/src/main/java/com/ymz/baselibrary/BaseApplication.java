@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.squareup.leakcanary.LeakCanary;
 import com.ymz.baselibrary.utils.SpUtils;
 
 import java.io.File;
@@ -49,7 +48,7 @@ public  class BaseApplication {
 
     /*检测内存泄露*/
     private void initLeakCanary(){
-        LeakCanary.install(mApplication);
+        //LeakCanary.install(mApplication);
     }
 
 

@@ -2,13 +2,19 @@ package com.ys.uilibrary;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Rect;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+
+import com.ys.uilibrary.utils.DisplayUtils;
 
 /**
  *
@@ -20,6 +26,9 @@ import android.widget.ImageView;
  */
 @SuppressLint("AppCompatCustomView")
 public class ColorFilterImageView extends ImageView implements OnTouchListener {
+
+    private String text;
+
     public ColorFilterImageView(Context context) {
         this(context, null, 0);
     }
@@ -51,5 +60,29 @@ public class ColorFilterImageView extends ImageView implements OnTouchListener {
                 break;
         }
         return false;
+    }
+
+    private  String textString;
+    public  void setText(String txtStr){
+        textString = txtStr;
+
+        drawableStateChanged();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        @SuppressLint("DrawAllocation") Paint paint=new Paint();
+       // paint.setColor(w);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setStrokeWidth(8);
+        paint.setTextSize(DisplayUtils.dip2px(getContext(),26));
+        @SuppressLint("DrawAllocation") Rect bounds = new Rect();
+        if (!TextUtils.isEmpty(textString)){
+            setColorFilter(Color.GRAY, Mode.MULTIPLY);
+            paint.getTextBounds(textString, 0, textString.length(), bounds);
+            canvas.drawText(textString, getMeasuredWidth()/2 - bounds.width()/2, getMeasuredHeight()/2 + bounds.height()/2, paint);
+        }
+
     }
 }

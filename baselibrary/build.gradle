@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'com.novoda.bintray-release'//添加
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -30,5 +35,31 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
 }
 
+
+////添加
+//publish {
+//    userOrg = 'gyymz1993'//bintray.com用户名
+//    groupId = 'com.baselibrary'//jcenter上的路径
+//    artifactId = 'baselibrary'//项目名称
+//    publishVersion = '1.0.0'//版本号
+//    desc = 'this is for baselibrary'//描述，不重要
+//    website = 'https://github.com/gyymz1993/YangUtils.git'//网站，最好有，不重要
+//}
+////生成源文件
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+////生成文档
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    options.encoding "UTF-8"
+//    options.charSet 'UTF-8'
+//    options.author true
+//    options.version true
+//    failOnError false
+//}
+//
 
 
