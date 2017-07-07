@@ -30,13 +30,7 @@ public class MainActivity extends ABaseActivity {
 
         idNavigationbar.setTitleText("测试测试");
         setTitleText("测试 TopBar");
-        setTopLeftButton(R.drawable.ic_load_fail_black, new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                T_.showToastReal("测试");
-            }
-        });
+        setTopLeftButton(R.drawable.ic_load_fail_black, v -> T_.showToastReal("测试"));
 
         MainFragment mainFragment = new MainFragment();
         addFragment(mainFragment);
